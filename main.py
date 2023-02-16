@@ -13,35 +13,14 @@ def generate_word():
     # return "".join(word)
     return "testing"
 
-def play_round(word):
-    pass
-
-
-def main():
-
-    # Welcome message and start menu for players
-    # while True:
-    #     startmsg = input("Welcome! Would you like to play Hangman? (Y/N)").lower()
-    #     if startmsg not in ['y', 'n']:
-    #         print("Please type Y to start playing or N to quit")
-    #         continue
-    #     elif startmsg in 'n':
-    #         print("Goodbye!")
-    #         quit()
-    #     elif startmsg in 'y':
-    #         print("The game has started")
-    #         break
-
-    # Generate word for player to guess
-    word = generate_word()
-    print("DEBUGGING: Word to generated is", word)
-    print("The word to guess has ", len(word), " letters")
-    print("Type \"#\" to quit at anytime\n")
-    lives = 2
+def play_round(word, lives):
+    print("\nDEBUGGING: Word to generated is", word)
+    print("The word to guess has", len(word), "letters")
+    print("Type \"#\" to quit at anytime")
 
     # Prepare lists for adding guesses and recording previous guesses
     word_list = []
-    for x in range (len(word)):
+    for x in range(len(word)):
         word_list.append('_')
     prev_guesses_letter = []
     prev_guesses_word = []
@@ -53,9 +32,10 @@ def main():
             print("\nYou have no lives remaining :(", "\nThe word was", word)
             break
         # Receive user guess
-        print("\n", "".join(word_list), "\nLives remaining:", lives)
-        print ("Previous incorrect letter guesses", prev_guesses_letter)
-        print ("Previous incorrect word guesses", prev_guesses_word)
+        print("")
+        print("".join(word_list), "\nLives remaining:", lives)
+        print("Previous incorrect letter guesses", prev_guesses_letter)
+        print("Previous incorrect word guesses", prev_guesses_word)
         guess = str(input("Guess a letter or word: ")).lower().strip()
 
         # Check if user wants to quit
@@ -84,11 +64,35 @@ def main():
                 if guess in word[i]:
                     word_list[i] = guess
             continue
-        print("\'",guess,"\'", "is not not in the word")
+        print("\'", guess, "\'", "is not not in the word")
         lives -= 1
 
-    retry = str(input("Would you like to play again? (Y/N)")).lower
+
+def main():
+
+    # Welcome message and start menu for players
+    # while True:
+    #     startmsg = input("Welcome! Would you like to play Hangman? (Y/N)").lower()
+    #     if startmsg not in ['y', 'n']:
+    #         print("Please type Y to start playing or N to quit")
+    #         continue
+    #     elif startmsg in 'n':
+    #         print("Goodbye!")
+    #         quit()
+    #     elif startmsg in 'y':
+    #         print("The game has started")
+    #         break
+
+    # Generate word for player to guess
+    word = generate_word()
+
+    # Play a round
+    play_round(word, 2)
+
+
+
     while True:
+        retry = str(input("Would you like to play again? (Y/N)")).lower()
         if retry not in ['y', 'n']:
             print("Please type Y to retry or N to quit")
             continue
@@ -96,9 +100,9 @@ def main():
             print("Goodbye!")
             quit()
         elif retry in 'y':
-            print("The game has started")
             break
 
+    play_round(generate_word(), 2)
 
 
 
