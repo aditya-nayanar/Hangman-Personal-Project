@@ -23,11 +23,15 @@ def generate_word():
     word.pop(-1)
     word.pop(-1)
 
-    return "".join(word)
+    if response.ok:
+        return "".join(word)
+    else:
+        print("Error: API not working")
+        quit()
 
 def play_round(word, lives):
     '''Start a round of hangman based on a given word and number of lives'''
-    print("\nDEBUGGING: Word to generated is", word)
+    # print("\nDEBUGGING: Word to generated is", word)
     print("The word to guess has", len(word), "letters")
     print("Type \"#\" to quit at anytime")
 
